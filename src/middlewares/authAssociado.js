@@ -8,7 +8,12 @@ function verifyJWT(req, res, next) {
             return res
                 .status(401)
                 .json({ msg: "Falha na autenticação do token." });
-        req.sellerId = decoded.id;
+        if (!decoded.isAssociado) {
+            return res
+                .status(401)
+                .json({ msg: "Rota permitida apenas para Associados." });
+        }
+        req.associadoId = decoded.id;
         next();
     });
 }

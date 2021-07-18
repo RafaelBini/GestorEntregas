@@ -23,11 +23,11 @@ As entregas são cadastradas pelos associados e executadas/finalizadas pelos mot
 Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
 
 - CRUD de associados:
-    - [ ] Cadastro de associados com os campos: Nome da empresa, CNPJ, senha e endereço (sendo este último o único opcional). CNPJ deve ser único, cuide para não permitir duplicações neste campo.
-    - [ ] Listar todos os associados.
-    - [ ] Listar um associado específico dado o CNPJ.
-    - [ ] Editar um associado específico passando o ID. Novamente cuide o campo CNPJ que deve ser único.
-    - [ ] Remover associado independente se há registros de entregas relacionados a ele. Remover todos os registros junto.
+    - [x] Cadastro de associados com os campos: Nome da empresa, CNPJ, senha e endereço (sendo este último o único opcional). CNPJ deve ser único, cuide para não permitir duplicações neste campo.
+    - [x] Listar todos os associados.
+    - [x] Listar um associado específico dado o CNPJ.
+    - [x] Editar um associado específico passando o ID. Novamente cuide o campo CNPJ que deve ser único.
+    - [x] Remover associado independente se há registros de entregas relacionados a ele. Remover todos os registros junto.
 
 - CRUD de clientes:
     - [ ] Cadastro de clientes com os campos: Nome da empresa, CNPJ e endereço (todos obrigatórios).
@@ -37,11 +37,11 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [ ] Remover cliente independente se há registros de entregas relacionados a ele.
 
 - CRUD de motoboys:
-    - [ ] Cadastro de motoboys com os campos: Nome, CPF, senha e telefone (todos obrigatórios). CPF deve ser único no sistema.
-    - [ ] Listar todos os motoboys.
-    - [ ] Listar um motoboy específico dado o CPF.
-    - [ ] Editar um motoboy específico passando o ID.
-    - [ ] Remover motoboy independente se há registros de entregas relacionados a ele.
+    - [x] Cadastro de motoboys com os campos: Nome, CPF, senha e telefone (todos obrigatórios). CPF deve ser único no sistema.
+    - [x] Listar todos os motoboys.
+    - [x] Listar um motoboy específico dado o CPF.
+    - [x] Editar um motoboy específico passando o ID.
+    - [x] Remover motoboy independente se há registros de entregas relacionados a ele.
 
 - CRUD de entregas:
     - [ ] Cadastro de entregas com os campos: Descrição, cliente, motoboy (status e valor serão campos atualizados pelo motoboy). Cada entrega é única no sistema.
@@ -52,21 +52,28 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [ ] Editar uma entrega pendente.
     - [ ] Remover uma entrega pendente.
  
-- Os associados e motoboys devem ser capazes de logar no sistema de forma segura com uso de hash da senha gravada no BD e token de autenticação para uso do sistema;
-    - [ ] O login é o CNPJ para associados e o CPF para motoboys;
-    - [ ] A senha deve conter ao menos 8 caracteres, uma letra, um símbolo especial e um número;
-    - [ ] O token deve ter validade máxima de 5 horas e deve ser invalidado também no logout.
+ - Esquema de Segurança
+    - [x] Os associados e motoboys devem ser capazes de logar no sistema de forma segura com uso de hash da senha gravada no BD e token de autenticação para uso do sistema; O login é o CNPJ para associados e o CPF para motoboys;
+    - [x] A senha deve conter ao menos 8 caracteres, uma letra, um símbolo especial e um número;
+    - [x] O token deve ter validade máxima de 5 horas e deve ser invalidado também no logout.
 
 - A ACP possui acesso as seguintes funcionalidades:
-    - [ ] CRUD de associados;
-    - [ ] Considere que a ACP não tem login e/ou senha. Ela apenas acessa as rotas fornecidas pela API, de maneira direta, para realizar o CRUD dos associados.
+    - [x] CRUD de associados;
+    - [x] Considere que a ACP não tem login e/ou senha. Ela apenas acessa as rotas fornecidas pela API, de maneira direta, para realizar o CRUD dos associados.
 
 - Os associados possuem acesso as seguintes funcionalidades:
-    - [ ] Verificação e edição de seus dados, incluindo troca de senha;
+    - [x] Verificação e edição de seus dados, incluindo troca de senha;
     - [ ] CRUD de seus clientes, motoboys e entregas;
-    - [ ] Relatório administrativo retornando à quantidade total de clientes, motoboys e entregas cadastradas; os top 5 clientes que solicitaram mais entregas; os top
-5 motoboys que realizaram mais entregas; a porcentagem de entregas realizadas até o momento; a porcentagem de entregas pendentes até o momento;
-    - [ ] Relatório financeiro retornando indicador do valor total em Reais cobrado nas entregas realizadas, a porcentagem a ser paga para os motoboys (considerar 70% do valor da entrega) e a porcentagem do associado (considerar 30% do valor da entrega).
+    - Relatório administrativo retornando 
+        - [x] à quantidade total de clientes, motoboys e entregas cadastradas; 
+        - [x] os top 5 clientes que solicitaram mais entregas; 
+        - [x] os top 5 motoboys que realizaram mais entregas; 
+        - [x] a porcentagem de entregas realizadas até o momento;
+        - [x] a porcentagem de entregas pendentes até o momento;
+    - Relatório financeiro retornando indicador do 
+        - [x] valor total em Reais cobrado nas entregas realizadas, 
+        - [x] a porcentagem a ser paga para os motoboys (considerar 70% do valor da entrega) e 
+        - [x] a porcentagem do associado (considerar 30% do valor da entrega).
 
 - Os motoboys possuem acesso as seguintes funcionalidades:
     - [ ] Lista de suas entregas realizadas
@@ -74,7 +81,7 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [ ] Edição de uma entrega pessoal pendente, atualizando o status dela para realizada e o valor em Real do custo da entrega.
     - [ ] Relatório financeiro retornando indicador do valor total em Reais cobrado nas entregas realizadas e sua porcentagem a ser paga (considerar 70% do valor da entrega).
 
-- A ACP solicita que arquivos de migrations e seeders para cada tabela do sistema, além disto, solicita também que API seja desenvolvida de acordo com o Padrão MVC, já que outros desenvolvedores serão responsáveis pelo frontend.
+    - [x] A ACP solicita que arquivos de migrations e seeders para cada tabela do sistema, além disto, solicita também que API seja desenvolvida de acordo com o Padrão MVC, já que outros desenvolvedores serão responsáveis pelo frontend.
 
 ## Observações
 
