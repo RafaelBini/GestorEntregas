@@ -30,11 +30,11 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [x] Remover associado independente se há registros de entregas relacionados a ele. Remover todos os registros junto.
 
 - CRUD de clientes:
-    - [ ] Cadastro de clientes com os campos: Nome da empresa, CNPJ e endereço (todos obrigatórios).
-    - [ ] Listar todos os clientes.
-    - [ ] Listar um cliente específico dado o CNPJ.
-    - [ ] Editar um cliente específico passando o ID.
-    - [ ] Remover cliente independente se há registros de entregas relacionados a ele.
+    - [x] Cadastro de clientes com os campos: Nome da empresa, CNPJ e endereço (todos obrigatórios).
+    - [x] Listar todos os clientes.
+    - [x] Listar um cliente específico dado o CNPJ.
+    - [x] Editar um cliente específico passando o ID.
+    - [x] Remover cliente independente se há registros de entregas relacionados a ele.
 
 - CRUD de motoboys:
     - [x] Cadastro de motoboys com os campos: Nome, CPF, senha e telefone (todos obrigatórios). CPF deve ser único no sistema.
