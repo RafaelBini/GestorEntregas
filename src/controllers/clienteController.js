@@ -21,7 +21,7 @@ module.exports = {
         else {
             const cliente = await Cliente.create({
                 nomeEmpresa,
-                associadoId: req.associadoId,
+                associado_id: req.associadoId,
                 cnpj,
                 endereco,
             }).catch((error) => {
@@ -40,7 +40,7 @@ module.exports = {
 
         const clientes = await Cliente.findAll({
             where: {
-                associadoId: req.associadoId
+                associado_id: req.associadoId
             }
         });
 
@@ -62,7 +62,7 @@ module.exports = {
         const cliente = await Cliente.findAll({
             where: {
                 cnpj: { [Op.like]: "%" + cnpj + "%" },
-                associadoId: req.associadoId
+                associado_id: req.associadoId
             },
         });
         console.log(cliente);
@@ -83,7 +83,7 @@ module.exports = {
             const clientExists = await Cliente.findOne({
                 where: {
                     id: clienteID,
-                    associadoId: req.associadoId
+                    associado_id: req.associadoId
                 }
             });
             if (!clientExists)
@@ -93,7 +93,7 @@ module.exports = {
                 const cpfAlreadyExists = await Cliente.findOne({
                     where: {
                         cnpj: cliente.cnpj,
-                        associadoId: req.associadoId
+                        associado_id: req.associadoId
                     }
                 })
                 if (cpfAlreadyExists) {
@@ -124,7 +124,7 @@ module.exports = {
         const clientDelete = await Cliente.destroy({
             where: {
                 id: id,
-                associadoId: req.associadoId
+                associado_id: req.associadoId
             },
         }).catch(async (error) => {
             res.status(403).json({ msg: "Erro", msg2: error });

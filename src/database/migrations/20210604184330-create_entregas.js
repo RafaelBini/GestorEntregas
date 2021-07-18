@@ -33,7 +33,7 @@ module.exports = {
       },
       valor: {
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
     });
   },

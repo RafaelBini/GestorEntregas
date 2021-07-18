@@ -44,13 +44,13 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [x] Remover motoboy independente se há registros de entregas relacionados a ele.
 
 - CRUD de entregas:
-    - [ ] Cadastro de entregas com os campos: Descrição, cliente, motoboy (status e valor serão campos atualizados pelo motoboy). Cada entrega é única no sistema.
-    - [ ] Listar todas as entregas
-    - [ ] Listar todas as entregas realizadas
-    - [ ] Listar todas as entregas pendentes
-    - [ ] Listar todas as entregas por motoboy
-    - [ ] Editar uma entrega pendente.
-    - [ ] Remover uma entrega pendente.
+    - [x] Cadastro de entregas com os campos: Descrição, cliente, motoboy (status e valor serão campos atualizados pelo motoboy). Cada entrega é única no sistema.
+    - [x] Listar todas as entregas
+    - [x] Listar todas as entregas realizadas
+    - [X] Listar todas as entregas pendentes
+    - [x] Listar todas as entregas por motoboy
+    - [x] Editar uma entrega pendente.
+    - [x] Remover uma entrega pendente.
  
  - Esquema de Segurança
     - [x] Os associados e motoboys devem ser capazes de logar no sistema de forma segura com uso de hash da senha gravada no BD e token de autenticação para uso do sistema; O login é o CNPJ para associados e o CPF para motoboys;
@@ -63,7 +63,7 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
 
 - Os associados possuem acesso as seguintes funcionalidades:
     - [x] Verificação e edição de seus dados, incluindo troca de senha;
-    - [ ] CRUD de seus clientes, motoboys e entregas;
+    - [x] CRUD de seus clientes, motoboys e entregas;
     - Relatório administrativo retornando 
         - [x] à quantidade total de clientes, motoboys e entregas cadastradas; 
         - [x] os top 5 clientes que solicitaram mais entregas; 
@@ -76,10 +76,10 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
         - [x] a porcentagem do associado (considerar 30% do valor da entrega).
 
 - Os motoboys possuem acesso as seguintes funcionalidades:
-    - [ ] Lista de suas entregas realizadas
-    - [ ] Lista de suas entregas pendentes
-    - [ ] Edição de uma entrega pessoal pendente, atualizando o status dela para realizada e o valor em Real do custo da entrega.
-    - [ ] Relatório financeiro retornando indicador do valor total em Reais cobrado nas entregas realizadas e sua porcentagem a ser paga (considerar 70% do valor da entrega).
+    - [x] Lista de suas entregas realizadas
+    - [x] Lista de suas entregas pendentes
+    - [x] Edição de uma entrega pessoal pendente, atualizando o status dela para realizada e o valor em Real do custo da entrega.
+    - [x] Relatório financeiro retornando indicador do valor total em Reais cobrado nas entregas realizadas e sua porcentagem a ser paga (considerar 70% do valor da entrega).
 
     - [x] A ACP solicita que arquivos de migrations e seeders para cada tabela do sistema, além disto, solicita também que API seja desenvolvida de acordo com o Padrão MVC, já que outros desenvolvedores serão responsáveis pelo frontend.
 

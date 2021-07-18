@@ -6,7 +6,7 @@ class Entrega extends Sequelize.Model {
             {
                 descricao: Sequelize.STRING,
                 valor: Sequelize.DECIMAL(10, 2),
-                status: Sequelize.STRING,
+                status: Sequelize.STRING
             },
             {
                 sequelize,
@@ -15,8 +15,8 @@ class Entrega extends Sequelize.Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Cliente, { foreignKey: "clienteId" });
-        this.belongsTo(models.Motoboy, { foreignKey: "motoboyId" });
+        this.belongsTo(models.Cliente, { foreignKey: "cliente_id" });
+        this.belongsTo(models.Motoboy, { foreignKey: "motoboy_id" });
     }
 }
 

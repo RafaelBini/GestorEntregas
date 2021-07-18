@@ -13,7 +13,7 @@ function verifyJWT(req, res, next) {
                 .status(401)
                 .json({ msg: "Rota permitida apenas para Motoboys." });
         }
-        req.associadoId = decoded.id;
+        req.motoboyId = decoded.id;
         next();
     });
 }
