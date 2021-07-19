@@ -11,5 +11,8 @@ associadoRouter.delete("/:id", associadoController.deleteAssoociado);
 associadoRouter.put("/:id", associadoController.updateAssociado);
 associadoRouter.post("/create", associadoController.createAssociado);
 associadoRouter.post("/auth", associadoController.authenticateAssociado);
+associadoRouter.get("/myInfo", authAssociado, associadoController.getMyAssociadoInfo);
+associadoRouter.patch("/changeMyPassword", authAssociado, associadoController.changePassword);
+
 
 module.exports = associadoRouter;

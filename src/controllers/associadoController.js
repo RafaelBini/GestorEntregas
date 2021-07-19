@@ -105,6 +105,15 @@ module.exports = {
             }
         }
 
+        if (associado.senha) {
+            const passwordValid = passwordValidation(associado.senha);
+            if (passwordValid !== "OK")
+                return res.status(400).json({ msg: passwordValid });
+            const salt = bcrypt.genSaltSync(12);
+            const hash = bcrypt.hashSync(associado.senha, salt);
+            associado.senha = hash;
+        }
+
         Associado.update(associado, {
             where: {
                 id: req.params.id
@@ -260,5 +269,65 @@ module.exports = {
 
         res.json(info)
 
-    }
+    },
+    async getMyAssociadoInfo(req, res) {
+
+        const associado = await Associado.findOne({
+            where: {
+                id: req.associadoId
+            }
+        });
+
+        if (associado) {
+            res.status(200).json(associado);
+
+        } else
+            res.status(404).json({
+                msg: "Associado(s) não encontrado(s).",
+            });
+    },
+    async changePassword(req, res) {
+        const { newPassword } = req.body;
+        console.log(newPassword)
+
+        try {
+
+            if (!newPassword) {
+                return res.status(400).json({ msg: "Nenhuma nova senha (newPassword) informada" })
+            }
+
+            const passwordValid = passwordValidation(newPassword);
+            if (passwordValid !== "OK")
+                return res.status(400).json({ msg: passwordValid });
+
+            const associadoExists = await Associado.findOne({
+                where: {
+                    id: req.associadoId
+                }
+            })
+
+            if (!associadoExists) {
+                res.status(400).json({ msg: "Nenhum associado com esse ID foi encontrado" })
+                return;
+            }
+
+            const salt = bcrypt.genSaltSync(12);
+            const hash = bcrypt.hashSync(newPassword, salt);
+
+            await Associado.update({
+                senha: hash
+            }, {
+                where: {
+                    id: req.associadoId
+                }
+            });
+
+            res.json({ msg: "Senha alterada com sucesso" })
+
+        }
+        catch (error) {
+            console.log(error)
+            return res.status(500).json({ msg: 'Erro ao tentar atualizar informação no banco de dados', msg2: error })
+        }
+    },
 }

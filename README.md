@@ -47,7 +47,7 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
     - [x] Cadastro de entregas com os campos: Descrição, cliente, motoboy (status e valor serão campos atualizados pelo motoboy). Cada entrega é única no sistema.
     - [x] Listar todas as entregas
     - [x] Listar todas as entregas realizadas
-    - [X] Listar todas as entregas pendentes
+    - [x] Listar todas as entregas pendentes
     - [x] Listar todas as entregas por motoboy
     - [x] Editar uma entrega pendente.
     - [x] Remover uma entrega pendente.
@@ -103,15 +103,15 @@ Para o desenvolvimento da API, a ACP solicitou as seguintes funcionalidades:
 
 ## Critérios de avaliação
 
-- [ ] Configuração .env, BD MySQL, Sequelize, arquivos de migrações e seeders (com pelo menos 3 cadastros para cada tabela) funcionando corretamente – 0,5 ponto
+- [x] Configuração .env, BD MySQL, Sequelize, arquivos de migrações e seeders (com pelo menos 3 cadastros para cada tabela) funcionando corretamente – 0,5 ponto
 
-- [ ] Funcionalidades da ACP funcionando corretamente – 0,5 ponto
+- [x] Funcionalidades da ACP funcionando corretamente – 0,5 ponto
 
-- [ ] Login de associado e motoboy desenvolvido de forma correta e funcional – 0,5 ponto
+- [x] Login de associado e motoboy desenvolvido de forma correta e funcional – 0,5 ponto
 
-- [ ] Funcionalidades dos associados desenvolvidas corretamente – 1,5 ponto
+- [x] Funcionalidades dos associados desenvolvidas corretamente – 1,5 ponto
 
-- [ ] Funcionalidades dos motoboys desenvolvidas corretamente – 1 ponto
+- [x] Funcionalidades dos motoboys desenvolvidas corretamente – 1 ponto
 
 ## Perda de nota (algumas dicas)
 

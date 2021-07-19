@@ -44,15 +44,15 @@ module.exports = {
             return;
         }
 
-        const motoboys = await Motoboy.findAll({
+        const motoboy = await Motoboy.findOne({
             where: {
                 cpf: cpf,
                 associadoId: req.associadoId
             }
         });
 
-        if (motoboys) {
-            res.status(200).json(motoboys);
+        if (motoboy) {
+            res.status(200).json(motoboy);
 
         } else
             res.status(404).json({

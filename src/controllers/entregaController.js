@@ -9,12 +9,12 @@ const { DECIMAL, STRING } = require("sequelize");
 module.exports = {
     async listAllEntregas(req, res) {
         const entregas = await Entrega.findAll({
-            attributes: ['id', 'descricao', 'cliente_id', 'motoboy_id', 'status', 'valor'],
+            attributes: ['id', 'descricao', 'clienteId', 'motoboyId', 'status', 'valor'],
             include: [{
-                attributes: { exclude: ['id', 'cpf', 'associado_id', 'nome', 'senha', 'telefone']},
+                attributes: { exclude: ['id', 'cpf', 'associadoId', 'nome', 'senha', 'telefone'] },
                 model: Motoboy,
                 required: true,
-                where: { associado_id: req.associadoId },
+                where: { associadoId: req.associadoId },
             }]
         });
 
@@ -23,7 +23,49 @@ module.exports = {
 
         } else {
             res.status(404).json({
-                msg: "Entregas não encontrada.",
+                msg: "Entregas nï¿½o encontrada.",
+            });
+        }
+    },
+    async listAllEntregasRealizadas(req, res) {
+        const entregas = await Entrega.findAll({
+            attributes: ['id', 'descricao', 'clienteId', 'motoboyId', 'status', 'valor'],
+            include: [{
+                attributes: { exclude: ['id', 'cpf', 'associadoId', 'nome', 'senha', 'telefone'] },
+                model: Motoboy,
+                required: true,
+                where: { associadoId: req.associadoId },
+            }],
+            where: { status: 'REALIZADA' }
+        });
+
+        if (entregas) {
+            res.status(200).json(entregas);
+
+        } else {
+            res.status(404).json({
+                msg: "Entregas nÃ£o encontradas.",
+            });
+        }
+    },
+    async listAllEntregasPendentes(req, res) {
+        const entregas = await Entrega.findAll({
+            attributes: ['id', 'descricao', 'clienteId', 'motoboyId', 'status', 'valor'],
+            include: [{
+                attributes: { exclude: ['id', 'cpf', 'associadoId', 'nome', 'senha', 'telefone'] },
+                model: Motoboy,
+                required: true,
+                where: { associadoId: req.associadoId },
+            }],
+            where: { status: 'PENDENTE' }
+        });
+
+        if (entregas) {
+            res.status(200).json(entregas);
+
+        } else {
+            res.status(404).json({
+                msg: "Entregas nÃ£o encontradas.",
             });
         }
     },
@@ -31,16 +73,42 @@ module.exports = {
         const entregas = await Entrega.findAll({
             where: {
                 status: "REALIZADA",
-                motoboy_id: req.motoboyId
+                motoboyId: req.motoboyId
             }
         });
-        
+
         if (entregas != "") {
             res.status(200).json(entregas);
 
         } else {
             res.status(404).json({
-                msg: "Entregas não encontrada.",
+                msg: "Entregas nÃ£o encontradas.",
+            });
+        }
+    },
+    async getRelatorioFinMotoboy(req, res) {
+        const entregas = await Entrega.findAll({
+            where: {
+                status: "REALIZADA",
+                motoboyId: req.motoboyId
+            }
+        });
+
+        const total = entregas.reduce((p, c) => {
+            return p + parseFloat(c.valor)
+        }, 0)
+
+        var info = {
+            valorTotal: total,
+            minhaPorcentagem: parseFloat((total * 0.7).toFixed(2))
+        }
+
+        if (entregas != "") {
+            res.status(200).json(info);
+
+        } else {
+            res.status(404).json({
+                msg: "Entregas nÃ£o encontradas.",
             });
         }
     },
@@ -48,27 +116,27 @@ module.exports = {
         const entregas = await Entrega.findAll({
             where: {
                 status: "PENDENTE",
-                motoboy_id: req.motoboyId
+                motoboyId: req.motoboyId
             }
         });
-        
+
         if (entregas != "") {
             res.status(200).json(entregas);
 
         } else {
             res.status(404).json({
-                msg: "Entregas não encontrada.",
+                msg: "Entregas nÃ£o encontrada.",
             });
         }
     },
     async listEntregasPorMotoboy(req, res) {
-        const motoboy_id = req.params.id;
+        const motoboyId = req.params.id;
 
-        console.log(req.associado_id);
+        console.log(req.associadoId);
         const associadoHaveMotoboy = await Motoboy.findOne({
             where: {
-                id: motoboy_id,
-                associado_id: req.associadoId
+                id: motoboyId,
+                associadoId: req.associadoId
             }
         });
         if (!associadoHaveMotoboy) {
@@ -77,27 +145,27 @@ module.exports = {
         }
 
         const entregas = await Entrega.findAll({
-            where: { motoboy_id: motoboy_id }
+            where: { motoboyId: motoboyId }
         });
 
-        if (entregas!="") {
+        if (entregas != "") {
             res.status(200).json(entregas);
         } else {
             res.status(404).json({
-                msg: "Entregas não encontrada para o motoboy: " + motoboy_id,
+                msg: "Entregas nï¿½o encontrada para o motoboy: " + motoboyId,
             });
         }
     },
     async createEntrega(req, res) {
-        const { descricao, cliente_id, motoboy_id } = req.body;
+        const { descricao, clienteId, motoboyId } = req.body;
 
-        if (!descricao || !cliente_id || !motoboy_id) {
+        if (!descricao || !clienteId || !motoboyId) {
             res.status(400).json({ msg: "Esta faltando enviar informacao obrigatoria" })
             return;
         }
 
         const cliente = await Cliente.findOne({
-            where: { id: cliente_id }
+            where: { id: clienteId, associadoId: req.associadoId }
         })
 
         if (!cliente) {
@@ -107,8 +175,8 @@ module.exports = {
 
         const motoboy = await Motoboy.findOne({
             where: {
-                id: motoboy_id,
-                associado_id: req.associadoId
+                id: motoboyId,
+                associadoId: req.associadoId
             }
         })
 
@@ -120,15 +188,51 @@ module.exports = {
         try {
             const status = "PENDENTE";
             await Entrega.create({
-                descricao, cliente_id, motoboy_id, status
+                descricao, clienteId, motoboyId, status
             })
 
-            res.json({ msg: "Associado criado com sucesso!" })
+            res.json({ msg: "Entrega criada com sucesso!" })
         } catch (error) {
             res.status(500).json({ msg: "Problema ao tentar criar Entrega", msg2: error })
         }
     },
     async update(req, res) {
+        const entregaRecebida = req.body;
+        const id = req.params.id;
+        try {
+
+            if (entregaRecebida.valor && entregaRecebida.valor < 0.0) {
+                res.status(400).json({ msg: "Valor nao pode ser menor que zero" })
+                return;
+            }
+
+            var entregaExists = await Entrega.findOne({
+                attributes: ['id', 'descricao', 'clienteId', 'motoboyId', 'status', 'valor'],
+                include: [{
+                    attributes: { exclude: ['id', 'cpf', 'associadoId', 'nome', 'senha', 'telefone'] },
+                    model: Motoboy,
+                    required: true,
+                    where: { associadoId: req.associadoId, id: req.params.id },
+                }]
+            });
+
+            if (entregaExists) {
+
+                await Entrega.update(entregaRecebida,
+                    { where: { id } },
+                );
+
+                res.json({ msg: "Entrega atualizada com sucesso." });
+
+            } else {
+                res.status(400).json({ msg: "Nao Ã© possivel alterar uma entrega com id de associado diferente do logado." })
+            }
+        } catch (error) {
+            res.status(500).json({ msg: "Problema ao tentar editar Entrega", msg2: error })
+        }
+
+    },
+    async realizarEntrega(req, res) {
         const { valor } = req.body;
         const id = req.params.id;
         if (!valor || !id) {
@@ -143,12 +247,13 @@ module.exports = {
         var entrega = await Entrega.findOne({
             where: {
                 id,
-                motoboy_id: req.motoboyId
+                motoboyId: req.motoboyId
             }
         });
         try {
             if (entrega) {
-                if (entrega.getDataValue("status") != "PENDENTE") {
+
+                if (entrega.status == "PENDENTE") {
                     const status = "REALIZADA";
                     await Entrega.update({
                         status, valor
@@ -161,7 +266,7 @@ module.exports = {
                     res.status(400).json({ msg: "Entrega nao esta pendente." })
                 }
             } else {
-                res.status(400).json({ msg: "Nao é possivel alterar uma entrega com id de motoboy diferente do logado." })
+                res.status(400).json({ msg: "Nao Ã© possivel alterar uma entrega com id de motoboy diferente do logado." })
             }
         } catch (error) {
             res.status(500).json({ msg: "Problema ao tentar editar Entrega", msg2: error })
@@ -190,12 +295,12 @@ module.exports = {
             return;
         }
 
-        const motoboy_id = (await entrega).getDataValue("motoboy_id");
-        console.log(req.associado_id);
+        const motoboyId = (await entrega).getDataValue("motoboyId");
+        console.log(req.associadoId);
         const associadoHaveMotoboy = await Motoboy.findOne({
             where: {
-                id: motoboy_id,
-                associado_id: req.associadoId
+                id: motoboyId,
+                associadoId: req.associadoId
             }
         });
         if (!associadoHaveMotoboy) {

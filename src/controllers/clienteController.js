@@ -21,7 +21,7 @@ module.exports = {
         else {
             const cliente = await Cliente.create({
                 nomeEmpresa,
-                associado_id: req.associadoId,
+                associadoId: req.associadoId,
                 cnpj,
                 endereco,
             }).catch((error) => {
@@ -40,7 +40,7 @@ module.exports = {
 
         const clientes = await Cliente.findAll({
             where: {
-                associado_id: req.associadoId
+                associadoId: req.associadoId
             }
         });
 
@@ -59,17 +59,17 @@ module.exports = {
                 msg: "O parâmetro cnpj está vazio.",
             });
         const Op = Sequelize.Op;
-        const cliente = await Cliente.findAll({
+        const cliente = await Cliente.findOne({
             where: {
                 cnpj: { [Op.like]: "%" + cnpj + "%" },
-                associado_id: req.associadoId
+                associadoId: req.associadoId
             },
         });
-        console.log(cliente);
+
         if (cliente) {
             if (cliente == "")
                 res.status(404).json({ msg: "Cliente não encontrado" });
-            else res.status(200).json({ cliente });
+            else res.status(200).json(cliente);
         } else
             res.status(404).json({
                 msg: "Cliente não encontrado.",
@@ -83,7 +83,7 @@ module.exports = {
             const clientExists = await Cliente.findOne({
                 where: {
                     id: clienteID,
-                    associado_id: req.associadoId
+                    associadoId: req.associadoId
                 }
             });
             if (!clientExists)
@@ -93,7 +93,7 @@ module.exports = {
                 const cpfAlreadyExists = await Cliente.findOne({
                     where: {
                         cnpj: cliente.cnpj,
-                        associado_id: req.associadoId
+                        associadoId: req.associadoId
                     }
                 })
                 if (cpfAlreadyExists) {
@@ -124,7 +124,7 @@ module.exports = {
         const clientDelete = await Cliente.destroy({
             where: {
                 id: id,
-                associado_id: req.associadoId
+                associadoId: req.associadoId
             },
         }).catch(async (error) => {
             res.status(403).json({ msg: "Erro", msg2: error });
